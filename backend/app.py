@@ -63,34 +63,6 @@ def get_job_applications():
     jobs_list = [job.to_dict() for job in job_applications]
     return jsonify({'jobs': jobs_list})
 
-"""
-@app.route('/api/job-applications', methods=['GET'])
-def get_job_applications():
-    job_applications = JobApplication.query.all()  # Get all job applications
-    job_list = [{
-        "id": job.id,
-        "company_name": job.company_name,
-        "job_title": job.job_title,
-        "salary": job.salary,
-        "location": job.location,
-        "application_status": job.application_status,
-        "job_type": job.job_type,  
-        "job_source": job.job_source,
-        "application_deadline": job.application_deadline,
-        "contact_person": job.contact_person,
-        "contact_email": job.contact_email, 
-        "application_link": job.application_link,
-        "resume_used": job.resume_used, 
-        "cover_letter_used": job.cover_letter_used,
-        "notes": job.notes,
-        "interview_date": job.interview_date,
-        "follow_up_date": job.follow_up_date,
-        "job_description": job.job_description, 
-        "technologies_required": job.technologies_required,
-        "offer_details": job.offer_details
-    } for job in job_applications]
-    return jsonify(job_list)
-"""
 
 
 @app.route("/api/job-application/<int:id>", methods=["PUT"])
