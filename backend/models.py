@@ -27,26 +27,25 @@ class JobApplication(db.Model):
     offer_details = db.Column(db.Text)
 
     def to_dict(self):
-        """Convert job application to a dictionary (for API responses)."""
         return {
             "id": self.id,
             "company_name": self.company_name,
             "job_title": self.job_title,
             "salary": self.salary,
             "location": self.location,
-            "application_date": self.application_date.strftime('%Y-%m-%d') if self.application_date else None,
+            "application_date": self.application_date,
             "application_status": self.application_status,
             "job_type": self.job_type,
             "job_source": self.job_source,
-            "application_deadline": self.application_deadline.strftime('%Y-%m-%d') if self.application_deadline else None,
+            "application_deadline": self.application_deadline,
             "contact_person": self.contact_person,
             "contact_email": self.contact_email,
             "application_link": self.application_link,
             "resume_used": self.resume_used,
             "cover_letter_used": self.cover_letter_used,
             "notes": self.notes,
-            "interview_date": self.interview_date.strftime('%Y-%m-%d') if self.interview_date else None,
-            "follow_up_date": self.follow_up_date.strftime('%Y-%m-%d') if self.follow_up_date else None,
+            "interview_date": self.interview_date,
+            "follow_up_date": self.follow_up_date,
             "job_description": self.job_description,
             "technologies_required": self.technologies_required,
             "offer_details": self.offer_details

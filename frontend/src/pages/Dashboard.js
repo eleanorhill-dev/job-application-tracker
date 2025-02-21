@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 const Dashboard = () => {
     const [jobApplications, setJobApplications] = useState([]);
 
-    // Fetch job applications from the backend
     useEffect(() => {
         const fetchJobApplications = async () => {
             try {
@@ -19,25 +18,37 @@ const Dashboard = () => {
         fetchJobApplications();
     }, []);
 
+    const deleteJobApplication = async (id) => {
+        try {
+            const response = await fetch(`http://localhost:5000/api/job-application/${id}`, {
+                method: 'DELETE',
+            });
+
+            if (response.ok) {
+                setJobApplications((prevJobs) => prevJobs.filter((job) => job.id !== id));
+            } else {
+                alert("Error deleting job application.");
+            }
+        } catch (error) {
+            console.error("Error deleting job application:", error);
+        }
+    };
+
     return (
         <div>
-            <h2>Dashboard</h2>
-            <h3>Job Applications</h3>
+            <h2>Job Applications Dashboard</h2>
+            <Link to="/add-job">Add New Job Application</Link>
             <ul>
                 {jobApplications.map((job) => (
-                <li key={job.id}>
-                    {/* Display all job properties */}
-                    {Object.entries(job).map(([key, value]) => (
-                    <div key={key}>
-                        <strong>{key.replace(/_/g, ' ').toUpperCase()}:</strong> {value}
-                    </div>
-                    ))}
-                    
-                    {/* Add a link to the update page */}
-                    <Link to={`/update-job/${job.id}`}>
-                    <button>Update</button>
-                    </Link>
-                </li>
+                    <li key={job.id}>
+                        <div>
+                            <h3>{job.company_name} - {job.job_title}</h3>
+                            <p>{job.application_status}</p>
+                            <p>{job.application_date}</p>
+                            <Link to={`/update-job/${job.id}`}>Edit</Link>
+                            <button onClick={() => deleteJobApplication(job.id)}>Delete</button>
+                        </div>
+                    </li>
                 ))}
             </ul>
         </div>
